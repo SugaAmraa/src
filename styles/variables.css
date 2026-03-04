@@ -1,0 +1,47 @@
+:root { 
+    /* Primary: Soft Green/Teal */
+    --color-primary: hsl(155, 50%, 45%);
+    --color-primary-light: hsl(155, 50%, 90%);
+
+    /* Accent: Warm Orange */
+    --color-accent: hsl(30, 90%, 60%);
+
+    /* Neutrals / Backgrounds */
+    --color-bg: hsl(200, 10%, 98%);
+    --color-surface: hsl(200, 10%, 100%);
+    --color-text-main: hsl(200, 10%, 10%);
+    --color-text-muted: hsl(200, 10%, 40%);
+    --color-border: hsl(200, 10%, 85%);
+
+    /* Typography */
+    --font-stack: system-ui, -apple-system, sans-serif;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 2rem;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+
+    /* Shadows & Radius */
+    --radius: 8px;
+    --shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    color-scheme: light;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --color-bg: hsl(200, 10%, 10%);
+    --color-surface: hsl(200, 10%, 15%);
+    --color-text-main: hsl(200, 10%, 90%);
+    --color-text-muted: hsl(200, 10%, 70%);
+    --color-border: hsl(200, 10%, 25%);
+    --shadow: 0 4px 6px rgba(0,0,0,0.3);
+    --color-primary-light: hsl(155, 30%, 25%);
+
+    color-scheme: dark;
+}
