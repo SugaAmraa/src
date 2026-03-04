@@ -131,7 +131,7 @@ export class PageLogin extends HTMLElement {
         if (!/^[a-zA-Z0-9_]+$/.test(username)) { el.textContent='⚠️ Зөвхөн үсэг, тоо, _ зөвшөөрнө'; el.style.color='orange'; return false; }
         // Async давхцал шалгалт
         el.textContent='⏳ Шалгаж байна...'; el.style.color='gray';
-        this._getUsers().then(users => {
+        getUsers().then(users => {
             const taken = users.some(u => u.username?.toLowerCase() === username.toLowerCase());
             if (taken) { el.textContent='✗ Энэ нэр аль хэдийн ашиглагдаж байна'; el.style.color='red'; }
             else { el.textContent='✓ Боломжтой'; el.style.color='green'; }
@@ -152,7 +152,7 @@ export class PageLogin extends HTMLElement {
         if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) return showErr('Хэрэглэгчийн нэр буруу байна.');
         if (password.length < 6) return showErr('Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой.');
 
-        const users = await this._getUsers();
+        const users = await getUsers();
         if (users.some(u => u.username?.toLowerCase() === username.toLowerCase())) return showErr('Энэ хэрэглэгчийн нэр аль хэдийн бүртгэлтэй.');
         if (users.some(u => u.email?.toLowerCase() === email.toLowerCase())) return showErr('Энэ и-мэйл аль хэдийн бүртгэлтэй.');
 
@@ -168,7 +168,7 @@ export class PageLogin extends HTMLElement {
             isAdmin: false
         };
 
-        await this._saveUser(newUser);
+        await createUser(newUser);
         this.loginSession(newUser);
     }
 
@@ -229,7 +229,7 @@ export class PageLogin extends HTMLElement {
     }
 
     async _processGoogleUser(googleUser) {
-        const users = await this._getUsers();
+        const users = await getUsers();
         const existing = users.find(u => u.email===googleUser.email && u.provider==='google');
         if (existing) {
             this.loginSession(existing);
@@ -261,7 +261,7 @@ export class PageLogin extends HTMLElement {
             if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) {
                 errEl.textContent='Хэрэглэгчийн нэрийг шалгана уу.'; errEl.style.display='block'; return;
             }
-            const users = await this._getUsers();
+            const users = await getUsers();
             if (users.some(u => u.username?.toLowerCase()===username.toLowerCase())) {
                 errEl.textContent='Энэ нэр аль хэдийн ашиглагдаж байна.'; errEl.style.display='block'; return;
             }
@@ -280,7 +280,7 @@ export class PageLogin extends HTMLElement {
                 provider: 'google',
                 isAdmin: false
             };
-            await this._saveUser(newUser);
+            await createUser(newUser);
             this.loginSession(newUser);
         });
     }
