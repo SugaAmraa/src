@@ -1,6 +1,6 @@
 // ── Supabase тохиргоо ─────────────────────────────────────────
 const SUPABASE_URL = 'https://ecbzlkrvxomygcgcxlqc.supabase.co';   // 
-const SUPABASE_KEY = 'eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVjYnpsa3J2eG9teWdjZ2N4bHFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDg2MzAsImV4cCI6MjA4ODIyNDYzMH0.48mBSVRqdRBigFpSUZ5pShaxP8R3JLKrz5zx7tsQ9f8';  // ← anon public key
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVjYnpsa3J2eG9teWdjZ2N4bHFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NDg2MzAsImV4cCI6MjA4ODIyNDYzMH0.48mBSVRqdRBigFpSUZ5pShaxP8R3JLKrz5zx7tsQ9f8.48mBSVRqdRBigFpSUZ5pShaxP8R3JLKrz5zx7tsQ9f8';  // ← anon public key
 
 // Supabase REST API helper
 export const supabase = {
