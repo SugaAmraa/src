@@ -185,7 +185,7 @@ export class PageLogin extends HTMLElement {
         try {
             // Supabase-аас и-мэйлээр хайх
             const user = await getUserByEmail(email);
-            if (!user || user.password_hash !== passwordHash)
+            if (!user || user.passwordHash !== passwordHash)
                 return showErr('И-мэйл эсвэл нууц үг буруу байна.');
             this.loginSession(user);
         } catch {
