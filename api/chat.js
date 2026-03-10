@@ -14,6 +14,20 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'messages шаардлагатай.' });
     }
 
+    // Зөвхөн user/assistant role-тай, зөв ээлжтэй message-үүдийг шүүнэ
+    // Anthropic: эхний message заавал 'user' байна, давтагдсан role байж болохгүй
+    const filtered = messages
+        .filter(m => m.role === 'user' || m.role === 'assistant')
+        .filter(m => m.content?.trim());
+
+    // Эхний user message хүртэл assistant message-үүдийг хасна
+    const firstUserIdx = filtered.findIndex(m => m.role === 'user');
+    const cleanMessages = firstUserIdx >= 0 ? filtered.slice(firstUserIdx) : [];
+
+    if (!cleanMessages.length) {
+        return res.status(400).json({ error: 'Хэрэглэгчийн мэдээлэл байхгүй.' });
+    }
+
     try {
         const response = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
@@ -35,7 +49,7 @@ ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n')
 
 Рецепт гаргахдаа дэлгүүрийн бүтээгдэхүүнийг ашиглаж, үнийг нь дурдаж болно.
 Орц бүрийн ард [САГС] гэж бичвэл хэрэглэгч тэр орцыг сагсандаа нэмж чадна.`,
-                messages: messages
+                messages: cleanMessages
             })
         });
 
