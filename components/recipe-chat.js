@@ -10,7 +10,11 @@ export class RecipeChat extends HTMLElement {
     async connectedCallback() {
         this.render();
         this.products = await getProducts().catch(() => []);
-        this.addMessage('assistant', `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 Рецепт хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`);
+        // Угтах мэдээллийг зөвхөн харуулах — this.messages-д оруулахгүй
+        this._render([{
+            role: 'assistant',
+            content: `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 Рецепт хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`
+        }]);
     }
 
     render() {
