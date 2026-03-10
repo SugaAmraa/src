@@ -139,25 +139,14 @@ export class PageGrocery extends HTMLElement {
 
     async loadProducts() {
         try {
-            let products;
-            try {
-                const res = await fetch('http://localhost:3000/products');
-                if (!res.ok) throw new Error('no server');
-                products = await res.json();
-            } catch {
-                // Server байхгүй — products.json-ийг шууд уншина
-                const res = await fetch('/src/data/products.json');
-                if (!res.ok) throw new Error('no json');
-                products = await res.json();
-            }
-            this.allProducts = products;
+            this.allProducts = await getProducts();
             this.renderCategoryFilters();
             this.renderGrid();
-        } catch {
+        } catch(e) {
             this.querySelector('#grid').innerHTML = `
                 <p style="color:red; grid-column:1/-1;">
                     ⚠️ Бүтээгдэхүүн ачаалж чадсангүй.<br>
-                    <small>products.json файлаа <code>src/data/products.json</code> замд байрлуулна уу.</small>
+                    <small>${e.message || 'Supabase холболтоо шалгана уу.'}</small>
                 </p>`;
         }
     }
