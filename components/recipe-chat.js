@@ -161,5 +161,3 @@ export class RecipeChat extends HTMLElement {
 }
 
 customElements.define('recipe-chat', RecipeChat);
-}
-customElements.define('recipe-chat', RecipeChat);
