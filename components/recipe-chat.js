@@ -137,7 +137,7 @@ export class RecipeChat extends HTMLElement {
         this._render([...this.messages, { role:'typing', content:'...' }]);
 
         try {
-            const res = await fetch('/Api/chat', {
+            const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
