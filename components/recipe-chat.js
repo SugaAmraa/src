@@ -150,8 +150,12 @@ export class RecipeChat extends HTMLElement {
                 })
             });
 
-            if (!res.ok) throw new Error('API алдаа');
             const data = await res.json();
+            if (res.status === 429) {
+                this.addMessage('assistant', '⏳ Хэт олон хүсэлт илгээлээ. 30 секунд хүлээгээд дахин оролдоно уу.');
+                return;
+            }
+            if (!res.ok) throw new Error(data.error || 'API алдаа');
             this.addMessage('assistant', data.content);
 
         } catch {
