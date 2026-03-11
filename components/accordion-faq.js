@@ -19,7 +19,7 @@ export class AccordionFaq extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
         <style>
-            @import url('src/variables.css');
+            @import url('../variables.css');
             .item { border-bottom: 1px solid var(--color-border); }
             button {
                 width: 100%; text-align: left; padding: 1rem;
