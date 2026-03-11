@@ -39,7 +39,7 @@ export class RecipeChat extends HTMLElement {
                 <div style="padding:1rem; border-top:1px solid var(--color-border);
                     display:flex; gap:0.75rem; background:var(--color-bg);">
                     <input id="chat-input" type="text"
-                        placeholder="Рецепт асуух, орц бичих..."
+                        placeholder="жор асуух, орц бичих..."
                         style="flex:1; padding:0.75rem 1rem; border:1px solid var(--color-border);
                         border-radius:var(--radius); background:var(--color-surface);
                         color:var(--color-text-main); font-size:0.95rem;">
