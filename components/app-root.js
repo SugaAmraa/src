@@ -176,7 +176,7 @@ export class AppRoot extends HTMLElement {
         <sidebar-cart></sidebar-cart>
 
         <footer>
-            <p>&copy; 2025 Jorkhon. Эрүүл хооллоорой. 🌿</p>
+            <p>&copy; 2025 Jorkhon. Эрүүл хоололт. 🌿</p>
         </footer>
         `;
     }
