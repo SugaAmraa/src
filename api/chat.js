@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     if (!messages?.length) return res.status(400).json({ error: 'messages шаардлагатай.' });
 
     const apiKey = process.env.GEMINI_API_KEY;
-    console.log('GEMINI_API_KEY байна уу:', !!apiKey);
+
     if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY тохируулагдаагүй байна.' });
 
     // Зөвхөн user/assistant message-үүдийг шүүх
@@ -41,7 +41,7 @@ ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n')
 
     try {
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
