@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     if (!messages?.length) return res.status(400).json({ error: 'messages шаардлагатай.' });
 
     const apiKey = process.env.GEMINI_API_KEY;
+    console.log('GEMINI_API_KEY байна уу:', !!apiKey);
     if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY тохируулагдаагүй байна.' });
 
     // Зөвхөн user/assistant message-үүдийг шүүх
@@ -28,13 +29,13 @@ export default async function handler(req, res) {
 
     const systemPrompt = `Чи Jorkhon веб сайтын ChefBot туслах юм.
 Зөвхөн монгол хэлээр хариулна уу.
-Хэрэглэгчид хоолны Жор, орцын зөвлөгөө өгнө.
+Хэрэглэгчид хоолны рецепт, орцын зөвлөгөө өгнө.
 Хариултаа товч, тодорхой, найрсаг байлга.
 
 Дэлгүүрт байгаа бүтээгдэхүүнүүд:
 ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n') || 'Мэдээлэл байхгүй'}
 
-Жор гаргахдаа дэлгүүрийн бүтээгдэхүүнийг ашиглаж, үнийг нь дурдаж болно.
+Рецепт гаргахдаа дэлгүүрийн бүтээгдэхүүнийг ашиглаж, үнийг нь дурдаж болно.
 Орц бүрийн ард [САГС:орцын нэр] гэж бичвэл хэрэглэгч тэр орцыг сагсандаа нэмж чадна.
 Жишээ: Өндөг [САГС:Өндөг], Гурил [САГС:Гурил]`;
 
@@ -65,6 +66,7 @@ ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n')
         return res.status(200).json({ content: text });
 
     } catch (error) {
-        return res.status(500).json({ error: 'Серверийн алдаа гарлаа.' });
+        console.error('Catch алдаа:', error.message);
+        return res.status(500).json({ error: error.message || 'Серверийн алдаа гарлаа.' });
     }
 }
