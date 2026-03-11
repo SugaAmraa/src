@@ -2,7 +2,7 @@ export class PageHome extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="container" style="text-align:center; padding:4rem 1rem;">
-                <h1 style="font-size:3rem; color:var(--color-primary); margin-bottom:1rem;">Эрүүл иде. Сайхан амьдар.</h1>
+                <h1 style="font-size:3rem; color:var(--color-primary); margin-bottom:1rem;">Эрүүл хооллолт. Сайхан амьдаралд.</h1>
                 <p style="font-size:1.2rem; color:var(--color-text-muted); max-width:600px; margin:0 auto 2rem;">
                     Танд байгаа орцоор жор гаргаж өгдөг хувийн тогооч болон дэлгүүрийн туслах. Шинэ орцыг хэдхэн секундэд захиалаарай.
                 </p>
