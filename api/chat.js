@@ -56,6 +56,9 @@ ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n')
             }
         );
 
+        if (response.status === 429) {
+            return res.status(429).json({ error: 'Хэт олон хүсэлт илгээлээ. 30 секунд хүлээгээд дахин оролдоно уу.' });
+        }
         if (!response.ok) {
             const err = await response.json();
             return res.status(response.status).json({ error: err.error?.message || 'Gemini API алдаа' });
