@@ -14,12 +14,13 @@ export default async function handler(req, res) {
 
     // Зөвхөн user/assistant message-үүдийг шүүх
     const filtered = messages
-        .filter(m => (m.role === 'user' || m.role === 'assistant') && m.content?.trim())
+        .filter(m => (m.role === 'user' || m.role === 'assistant') && m.content?.trim());
 
     const firstUserIdx = filtered.findIndex(m => m.role === 'user');
     if (firstUserIdx < 0) return res.status(400).json({ error: 'Хэрэглэгчийн мэдээлэл байхгүй.' });
 
-    const cleanMessages = filtered.slice(firstUserIdx);
+    // Сүүлийн 6 message-г л явуулна — rate limit хэмнэх
+    const cleanMessages = filtered.slice(firstUserIdx).slice(-6);
 
     // Gemini формат: user → user, assistant → model
     const geminiMessages = cleanMessages.map(m => ({
