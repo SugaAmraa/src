@@ -69,7 +69,7 @@ export class AppRoot extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
         <style>
-            @import url('src/styles/variables.css');
+            @import url('../variables.css');
             :host {
                 display: flex;
                 flex-direction: column;
