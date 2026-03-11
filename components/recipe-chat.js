@@ -13,7 +13,7 @@ export class RecipeChat extends HTMLElement {
         // Угтах мэдээллийг зөвхөн харуулах — this.messages-д оруулахгүй
         this._render([{
             role: 'assistant',
-            content: `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 Рецепт хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`
+            content: `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 жор хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`
         }]);
     }
 
@@ -29,7 +29,7 @@ export class RecipeChat extends HTMLElement {
                     <span style="font-size:1.5rem;">👨‍🍳</span>
                     <div>
                         <div style="font-weight:700;">ChefBot</div>
-                        <div style="font-size:0.75rem; opacity:0.85;">Claude AI-д суурилсан хоолны туслах</div>
+                        <div style="font-size:0.75rem; opacity:0.85;">Groq AI-д суурилсан хоолны туслах</div>
                     </div>
                 </div>
 
