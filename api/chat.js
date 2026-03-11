@@ -8,25 +8,17 @@ export default async function handler(req, res) {
     const { messages, products } = req.body;
     if (!messages?.length) return res.status(400).json({ error: 'messages шаардлагатай.' });
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: 'GROQ_API_KEY тохируулагдаагүй байна.' });
 
-    if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY тохируулагдаагүй байна.' });
-
-    // Зөвхөн user/assistant message-үүдийг шүүх
+    // Зөвхөн user/assistant шүүх, сүүлийн 6-г л явуулна
     const filtered = messages
         .filter(m => (m.role === 'user' || m.role === 'assistant') && m.content?.trim());
 
     const firstUserIdx = filtered.findIndex(m => m.role === 'user');
     if (firstUserIdx < 0) return res.status(400).json({ error: 'Хэрэглэгчийн мэдээлэл байхгүй.' });
 
-    // Сүүлийн 6 message-г л явуулна — rate limit хэмнэх
     const cleanMessages = filtered.slice(firstUserIdx).slice(-6);
-
-    // Gemini формат: user → user, assistant → model
-    const geminiMessages = cleanMessages.map(m => ({
-        role:  m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.content }]
-    }));
 
     const systemPrompt = `Чи Jorkhon веб сайтын ChefBot туслах юм.
 Зөвхөн монгол хэлээр хариулна уу.
@@ -38,39 +30,39 @@ ${products?.map(p => `- ${p.name} (₮${p.price?.toLocaleString()})`).join('\n')
 
 Рецепт гаргахдаа дэлгүүрийн бүтээгдэхүүнийг ашиглаж, үнийг нь дурдаж болно.
 Орц бүрийн ард [САГС:орцын нэр] гэж бичвэл хэрэглэгч тэр орцыг сагсандаа нэмж чадна.
-Жишээ: Өндөг [САГС:Өндөг], Гурил [САГС:Гурил]`;
+Жишээ: Өндөг [САГС:Өндөг], Тахиа [САГС:Chicken Breast]`;
 
     try {
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    system_instruction: { parts: [{ text: systemPrompt }] },
-                    contents: geminiMessages,
-                    generationConfig: {
-                        maxOutputTokens: 1024,
-                        temperature: 0.7
-                    }
-                })
-            }
-        );
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type':  'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model:       'llama-3.3-70b-versatile',
+                max_tokens:  1024,
+                temperature: 0.7,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    ...cleanMessages
+                ]
+            })
+        });
 
         if (response.status === 429) {
-            return res.status(429).json({ error: 'Хэт олон хүсэлт илгээлээ. 30 секунд хүлээгээд дахин оролдоно уу.' });
+            return res.status(429).json({ error: 'Хэт олон хүсэлт. 30 секунд хүлээгээд дахин оролдоно уу.' });
         }
         if (!response.ok) {
             const err = await response.json();
-            return res.status(response.status).json({ error: err.error?.message || 'Gemini API алдаа' });
+            return res.status(response.status).json({ error: err.error?.message || 'Groq API алдаа' });
         }
 
         const data = await response.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const text = data.choices?.[0]?.message?.content || '';
         return res.status(200).json({ content: text });
 
     } catch (error) {
-        console.error('Catch алдаа:', error.message);
         return res.status(500).json({ error: error.message || 'Серверийн алдаа гарлаа.' });
     }
 }
