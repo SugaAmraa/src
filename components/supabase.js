@@ -9,7 +9,7 @@ const HEADERS = {
     'Prefer':        'return=representation'
 };
 
-// ── Үндсэн fetch helper ──────────────────────────────────────
+//Үндсэн fetch 
 async function query(path, options = {}) {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
         headers: HEADERS,
@@ -23,7 +23,6 @@ async function query(path, options = {}) {
     return res.json();
 }
 
-// ── snake_case → camelCase ────────────────────────────────────
 function toUser(row) {
     if (!row) return null;
     return {
@@ -39,7 +38,6 @@ function toUser(row) {
     };
 }
 
-// ── camelCase → snake_case ────────────────────────────────────
 function toRow(user) {
     return {
         id:            user.id,
@@ -53,7 +51,7 @@ function toRow(user) {
     };
 }
 
-// ── PRODUCTS ─────────────────────────────────────────────────
+// PRODUCTS 
 export async function getProducts() {
     return query('products?select=*&order=name.asc');
 }
@@ -66,7 +64,7 @@ export async function addProduct(product) {
     return data[0];
 }
 
-// ── USERS ────────────────────────────────────────────────────
+// USERS 
 export async function getUsers() {
     const data = await query('users?select=*');
     return data.map(toUser);

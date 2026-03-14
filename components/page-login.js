@@ -4,7 +4,7 @@ export class PageLogin extends HTMLElement {
     constructor() {
         super();
         this.mode = 'login';
-        // ⚠️ console.cloud.google.com-оос авсан Client ID-г энд тавина
+        // console.cloud.google.com-оос авсан Client ID-г энд тавина
         this.GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
     }
 

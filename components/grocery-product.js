@@ -5,7 +5,6 @@ export class GroceryProduct extends HTMLElement {
     }
 
     connectedCallback() {
-        // 'id' attribute нь HTML-ийн суурь attribute-тай давхцдаг тул 'product-id' ашиглана
         this.productId = this.getAttribute('product-id');
         this.productName = this.getAttribute('name');
         this.productPrice = parseFloat(this.getAttribute('price'));

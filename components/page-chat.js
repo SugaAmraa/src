@@ -7,7 +7,7 @@ export class PageChat extends HTMLElement {
                 <div style="margin-bottom:1rem;">
                     <h2 style="margin:0;">👨‍🍳 ChefBot</h2>
                     <p style="color:var(--color-text-muted); margin:0.25rem 0 0;">
-                        Орцоо хэлээрэй — монголоор рецепт гаргаж өгнө!
+                        Орцоо хэлээрэй — монголоор жор гаргаж өгнө!
                     </p>
                 </div>
                 <recipe-chat></recipe-chat>

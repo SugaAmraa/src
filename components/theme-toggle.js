@@ -6,7 +6,6 @@ export class ThemeToggle extends HTMLElement {
     }
 
     connectedCallback() {
-        // Render HTML once — innerHTML дахин бичихгүй, тиймээс listener устахгүй
         this.shadowRoot.innerHTML = `
         <style>
             :host { display: inline-block; }
@@ -29,7 +28,6 @@ export class ThemeToggle extends HTMLElement {
         `;
 
         this._btn = this.shadowRoot.querySelector('button');
-        // Event listener нэг удаа холбоно
         this._btn.addEventListener('click', () => this.toggle());
 
         this.applyTheme();
