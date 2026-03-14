@@ -13,13 +13,15 @@ export class RecipeChat extends HTMLElement {
         // Угтах мэдээллийг зөвхөн харуулах — this.messages-д оруулахгүй
         this._render([{
             role: 'assistant',
-            content: `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 жор хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`
+            content: `Сайн байна уу! 👋 Би таны хоолны туслах ChefBot.\n\nНадаас юу асуух вэ?\n- 🍳 Рецепт хүсэх\n- 🥩 Орцоор хоол санал болгуулах\n- 🛒 Дэлгүүрийн зөвлөгөө авах`
         }]);
     }
 
     render() {
         this.innerHTML = `
-            <div style="display:flex; flex-direction:column; height:70vh; max-width:800px;
+            <div style="display:flex; flex-direction:column;
+                height:calc(100vh - 140px); min-height:400px;
+                width:100%; max-width:100%;
                 border:1px solid var(--color-border); border-radius:var(--radius);
                 background:var(--color-surface); overflow:hidden;">
 
@@ -29,7 +31,7 @@ export class RecipeChat extends HTMLElement {
                     <span style="font-size:1.5rem;">👨‍🍳</span>
                     <div>
                         <div style="font-weight:700;">ChefBot</div>
-                        <div style="font-size:0.75rem; opacity:0.85;">Groq AI-д суурилсан хоолны туслах</div>
+                        <div style="font-size:0.75rem; opacity:0.85;">Claude AI-д суурилсан хоолны туслах</div>
                     </div>
                 </div>
 
@@ -39,7 +41,7 @@ export class RecipeChat extends HTMLElement {
                 <div style="padding:1rem; border-top:1px solid var(--color-border);
                     display:flex; gap:0.75rem; background:var(--color-bg);">
                     <input id="chat-input" type="text"
-                        placeholder="жор асуух, орц бичих..."
+                        placeholder="Рецепт асуух, орц бичих..."
                         style="flex:1; padding:0.75rem 1rem; border:1px solid var(--color-border);
                         border-radius:var(--radius); background:var(--color-surface);
                         color:var(--color-text-main); font-size:0.95rem;">
